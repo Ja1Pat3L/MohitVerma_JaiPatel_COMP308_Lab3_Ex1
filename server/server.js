@@ -7,7 +7,9 @@ const configureExpress = require('./config/express');
 //
 const { graphqlHTTP } = require('express-graphql');
 var schema = require('./graphql/studentSchemas');
+var schema = require('./graphql/courseSchemas');
 var cors = require("cors");
+const bodyParser = require('body-parser');
 
 
 // Create a new Mongoose connection instance
@@ -15,13 +17,28 @@ const db = configureMongoose();
 
 // Create a new Express application instance
 const app = configureExpress();
+//
+/*
+const corsOptions = {
+  origin: ["http://localhost:3000"], //included origin as true
+  credentials: true, //included credentials as true
+};
 
+app.use(cors(corsOptions));
+*/
 //configure GraphQL to use over HTTP
-app.use('*', cors());
-app.use('/graphql', cors(), graphqlHTTP({
-  schema: schema,
-  rootValue: global,
-  graphiql: true,
+//app.use('*', cors());
+app.use('/graphql', graphqlHTTP( (request, response) =>  {
+  return {
+    schema: schema,
+    rootValue: global,
+    graphiql: true,
+    context: {
+      
+      req: request,
+      res: response
+    }
+  }
 }));
 //
 // Use the Express application instance to listen to the '4000' port

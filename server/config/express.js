@@ -6,7 +6,8 @@ const compress = require('compression');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
-
+const cookieParser = require('cookie-parser');
+var cors = require("cors");
 // Define the Express configuration method
 module.exports = function() {
 	// Create a new Express application instance
@@ -24,6 +25,19 @@ module.exports = function() {
 		extended: true
 	}));
 	app.use(bodyParser.json());
+	//
+	app.use(cookieParser());
+	
+    app.use(function(req, res, next) {
+		res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+		res.header("Access-Control-Allow-Credentials", true);
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		next();
+    });
+	
+    //app.use(cors());
+	app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+	//
     app.use(methodOverride());
     //handle the use of PUT or DELETE methods
     //override with POST having ?_method=DELETE or

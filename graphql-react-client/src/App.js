@@ -43,7 +43,8 @@ function App() {
               <Nav.Link as={Link} to="/studentlist">Student List</Nav.Link>
               <Nav.Link as={Link} to="/editstudent">Edit  Student</Nav.Link>
               <Nav.Link as={Link} to="/deletestudent">Delete Student</Nav.Link>
-
+              <Nav.Link as={Link} to="/createcourse">Add Course</Nav.Link>
+              <Nav.Link as={Link} to="/listcourses">List of Courses</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
