@@ -9,7 +9,8 @@ const StudentSchema = new Schema({
     lastName: String,
     email: String,
     college: String,
-    program: String
+    program: String,
+    startingYear: { type: Number, min: 2015, max: 2022},
     
 	
 });
